@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+
 import './App.css';
+import {useState} from 'react';
+import data from './data';
+
+
 
 function App() {
+
+const [searchTerm,setSearchTerm] =useState("");
+
+
   return (
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Filter Search Application</h1>
+      <input type="text"   onChange={(e) => {setSearchTerm(e.target.value)}}/> 
+      {data.filter((person)=>{
+        if(searchTerm === ""){
+          return person;
+        } else if(person.username.toLowerCase().includes(searchTerm.toLowerCase())){
+          return person;
+        }
+      }).map((person,index)=>{
+        return (
+        <p style={{fontSize:"25px"}} key={index}>{person.username}</p>
+        )
+      })}
     </div>
   );
 }
